@@ -145,6 +145,7 @@ formElement.addEventListener('submit', (event) => {
 //渲染畫面
 const init = (newData = data) =>{
   const ticketList = document.querySelector('.js_ticketList')
+  const filterNum = document.querySelector('.js_filter')
   let str = ''
   data.forEach((item) => {
     let content = `
@@ -204,20 +205,24 @@ const init = (newData = data) =>{
     str += content
   })
   ticketList.innerHTML = str
+  filterNum.innerHTML = `搜尋資料為 ${data.length} 筆`
 }
 init();
 
 
 //
 const filterGroup = document.querySelector('.js_filterGroup')
+
+
 filterGroup.addEventListener('change', (e) => {
-  console.log(e.target.value)
+  const filterNum = document.querySelector('.js_filter')
+  
   if(e.target.value == '全部地區'){init()}else{
     const ticketList = document.querySelector('.js_ticketList')
     const newData = data.filter((item) => {
       return item.area == e.target.value
     })
-
+    
     let str = ''
     newData.forEach((item) => {
       let content = `
@@ -277,5 +282,6 @@ filterGroup.addEventListener('change', (e) => {
       str += content
     })
     ticketList.innerHTML = str
+    filterNum.innerHTML = `搜尋資料為 ${newData.length} 筆`
   }
 })
